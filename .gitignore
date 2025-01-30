@@ -1,5 +1,4 @@
 trade/assets
-docker/php/conf/xdebug.ini
 trade/public/assets
 trade/**/.gitignore
 .idea
