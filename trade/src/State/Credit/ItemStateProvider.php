@@ -4,12 +4,12 @@ namespace App\State\Credit;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use ApiPlatform\Validator\Exception\ValidationException;
 use App\Dto\Credit\Calculator\GetOutput;
 use App\Dto\Credit\Calculator\SuitableProgram;
 use App\Entity\Credit\Program\Program;
 use App\Operations\Api\Credit\Program\GetSuitableProgram;
 use App\Service\Http\QueryParamsService;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class ItemStateProvider implements ProviderInterface
@@ -49,7 +49,7 @@ final readonly class ItemStateProvider implements ProviderInterface
 			|| !is_numeric($result['price'])
 		)
 		{
-			throw new ValidationException('You should pass numeric loanTerm, initialPayment and price');
+			throw new BadRequestException('You should pass numeric loanTerm, initialPayment and price');
 		}
 	}
 
