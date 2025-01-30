@@ -25,7 +25,6 @@ RUN install-php-extensions \
     opcache \
     zip
 
-COPY ./conf/xdebug.ini $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
 COPY ./conf/custom.ini $PHP_INI_DIR/conf.d/custom.ini
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
