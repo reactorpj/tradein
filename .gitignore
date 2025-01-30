@@ -1,6 +1,5 @@
 trade/assets
 trade/public/assets
-trade/**/.gitignore
 .idea
 trade/**/*cache*
 
