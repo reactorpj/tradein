@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 #[ORM\Table(name: 'car_brand')]
@@ -22,6 +23,7 @@ class Brand
 
     #[ORM\Column(length: 255, unique: true, nullable: false)]
     #[Groups(['car:item:read', 'car:list:read'])]
+    #[SerializedName('name')]
     private ?string $title = null;
 
     /**

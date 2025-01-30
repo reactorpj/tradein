@@ -93,7 +93,7 @@ class Car
     }
 
 	#[Groups(['car:item:read', 'car:list:read'])]
-	#[SerializedName('path')]
+	#[SerializedName('photo')]
 	public function getPhotoPath(): ?string
 	{
 		return $this->getModel()->getPhoto()->getPath();

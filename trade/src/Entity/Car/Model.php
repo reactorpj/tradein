@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\Car\ModelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
 #[ORM\Table(name: 'car_model')]
@@ -20,6 +21,7 @@ class Model
 
     #[ORM\Column(length: 255, unique: true, nullable: false)]
     #[Groups(['car:item:read'])]
+    #[SerializedName('name')]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'models')]
