@@ -1,0 +1,60 @@
+name: tradein
+
+services:
+  php:
+    container_name: php
+    build:
+      context: ./docker/php
+    volumes:
+      - ~/dev/scratches:/var/www/scratches
+      - ./trade:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  cli:
+    container_name: cli
+    build:
+      context: ./docker/cli
+    volumes:
+      - ./trade:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    tty: true
+
+  db:
+    container_name: db
+    image: mariadb:11.6-ubi
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=trade
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=user
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+
+  nginx:
+    container_name: nginx
+    image: nginx:stable-bookworm-perl
+    volumes:
+      - ./trade:/var/www/html
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - php
+    ports:
+      - "8080:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  dbdata:

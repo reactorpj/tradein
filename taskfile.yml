@@ -1,0 +1,27 @@
+version: '3'
+
+silent: true
+
+tasks:
+  up:
+    cmds:
+      - docker compose up -d --build
+  down:
+    cmds:
+      - docker compose down --remove-orphans
+      - docker volume rm tradein_dbdata
+  cli:
+    cmds:
+      - docker exec -it cli {{.CLI_ARGS}}
+  db:
+    cmds:
+      - docker exec -it db {{.CLI_ARGS}}
+  mysql:
+    cmds:
+      - docker exec -it db mysql -u root -proot {{.CLI_ARGS}}
+  console:
+    cmds:
+      - docker exec -it cli symfony console {{.CLI_ARGS}}
+  req:
+    cmds:
+      - docker exec -it cli composer require {{.CLI_ARGS}}
