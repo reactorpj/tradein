@@ -7,7 +7,7 @@ use ApiPlatform\State\ProviderInterface;
 use App\Dto\Credit\Calculator\GetOutput;
 use App\Dto\Credit\Calculator\SuitableProgram;
 use App\Entity\Credit\Program\Program;
-use App\Operations\Api\Credit\Program\GetSuitableProgram;
+use App\Operation\Api\Credit\Program\GetSuitableProgram;
 use App\Service\Http\QueryParamsService;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

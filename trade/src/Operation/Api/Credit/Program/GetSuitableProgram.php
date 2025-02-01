@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Operations\Api\Credit\Program;
+namespace App\Operation\Api\Credit\Program;
 
 use App\Dto\Credit\Calculator\SuitableProgram;
 use App\Contracts\Api\Dto;

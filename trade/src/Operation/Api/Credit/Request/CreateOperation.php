@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Operations\Api\Credit\Request;
+namespace App\Operation\Api\Credit\Request;
 
 use App\Dto\Credit\Request\PostInput;
 use App\Contracts\Api\Dto;

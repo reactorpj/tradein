@@ -7,7 +7,7 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Dto\Credit\Request\PostInput;
 use App\Dto\Credit\Request\PostOutput;
 use App\Exception\Credit\Request\NotFoundException;
-use App\Operations\Api\Credit\Request\CreateOperation;
+use App\Operation\Api\Credit\Request\CreateOperation;
 
 final readonly class CreateStateProcessor implements ProcessorInterface
 {
