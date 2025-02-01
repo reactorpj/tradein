@@ -12,13 +12,10 @@ use Doctrine\ORM\EntityRepository;
 
 final readonly class GetSuitableProgram implements Operation
 {
-	/** @var ProgramRepository $programRepo */
-	private EntityRepository $programRepo;
-
-	public function __construct(private readonly EntityManagerInterface $entityManager)
-	{
-		$this->programRepo = $this->entityManager->getRepository(Program::class);
-	}
+	public function __construct(
+		private ProgramRepository $programRepository
+	)
+	{}
 
 	/**
 	 * @param SuitableProgram $dto
@@ -28,6 +25,6 @@ final readonly class GetSuitableProgram implements Operation
 	{
 		$minDownPaymentPercent = (($dto->initialPayment / $dto->price) * 100);
 
-		return $this->programRepo->findByCondition($minDownPaymentPercent, $dto->loanTerm);
+		return $this->programRepository->findByCondition($minDownPaymentPercent, $dto->loanTerm);
 	}
 }
