@@ -10,7 +10,6 @@ use App\Exception\Credit\Request\NotFoundException;
 use App\Repository\Car\CarRepository;
 use App\Repository\Credit\ProgramRepository;
 use App\Repository\Credit\RequestRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 final readonly class CreateOperation implements Operation
 {
