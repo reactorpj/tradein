@@ -13,10 +13,6 @@ doctrine-init:
 
 doctrine-fixtures:
 	@docker compose exec php bin/console doctrine:fixtures:load -q
-
-to:
-	sleep 10
-
 cars:
 	@echo http://localhost:80/api/v1/cars
 	@docker exec -it nginx curl http://localhost:80/api/v1/cars | jq
@@ -39,6 +35,6 @@ test:
 	docker exec -it php bin/phpunit
 
 
-init: docker-up composer-install to doctrine-init doctrine-fixtures
+init: docker-up composer-install doctrine-init doctrine-fixtures
 down: docker-down
 

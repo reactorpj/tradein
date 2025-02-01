@@ -10,7 +10,7 @@ services:
       - ./trade:/var/www/html
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: unless-stopped
+    restart: on-failure
     depends_on:
       - db
 
@@ -22,7 +22,7 @@ services:
       - ./trade:/var/www/html
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: unless-stopped
+    restart: on-failure
     tty: true
 
   db:
@@ -30,17 +30,22 @@ services:
     image: mariadb:11.6-ubi
     volumes:
       - dbdata:/var/lib/mysql
-      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - MARIADB_ROOT_PASSWORD=root
       - MARIADB_DATABASE=trade
       - MARIADB_USER=user
       - MARIADB_PASSWORD=user
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: unless-stopped
+    restart: on-failure
     ports:
-      - "3306:3306"
+      - "3306"
 
   nginx:
     container_name: nginx
@@ -54,7 +59,7 @@ services:
       - "8080:80"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: unless-stopped
+    restart: on-failure
 
 volumes:
   dbdata:
