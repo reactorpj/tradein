@@ -7,11 +7,11 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Dto\Credit\Request\PostInput;
 use App\Dto\Credit\Request\PostOutput;
 use App\Exception\Credit\Request\NotFoundException;
-use App\Operation\Api\Credit\Request\CreateOperation;
+use App\Operation\Api\Credit\Request\Create;
 
 final readonly class CreateStateProcessor implements ProcessorInterface
 {
-	public function __construct(private CreateOperation $createOperation) { }
+	public function __construct(private Create $createOperation) { }
 
 	/**
 	 * @param PostInput $data

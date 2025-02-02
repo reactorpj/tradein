@@ -11,7 +11,7 @@ use App\Repository\Car\CarRepository;
 use App\Repository\Credit\ProgramRepository;
 use App\Repository\Credit\RequestRepository;
 
-final readonly class CreateOperation implements Operation
+final readonly class Create implements Operation
 {
 	public function __construct(
 		private CarRepository $carRepository,
