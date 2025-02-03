@@ -9,6 +9,7 @@ use App\Repository\Car\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 #[ORM\Table(name: 'car_car')]
@@ -28,20 +29,26 @@ class Car
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['car:item:read', 'car:list:read'])]
+    #[Assert\NotBlank]
+    #[Assert\Type('integer')]
     private ?int $id = null;
 
     #[ORM\Column]
     #[Groups(['car:item:read', 'car:list:read'])]
+    #[Assert\NotBlank]
+    #[Assert\Type('integer')]
     private ?int $price = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['car:item:read', 'car:list:read'])]
+    #[Assert\NotBlank]
     private ?Brand $brand = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['car:item:read'])]
+    #[Assert\NotBlank]
     private ?Model $model = null;
 
     public function getId(): ?int

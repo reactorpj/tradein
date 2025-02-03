@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
 #[ORM\Table(name: 'car_brand')]
@@ -19,11 +20,15 @@ class Brand
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['car:item:read', 'car:list:read'])]
+    #[Assert\NotBlank]
+    #[Assert\Type('integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true, nullable: false)]
     #[Groups(['car:item:read', 'car:list:read'])]
     #[SerializedName('name')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
     /**

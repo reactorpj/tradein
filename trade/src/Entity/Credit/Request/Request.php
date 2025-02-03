@@ -10,6 +10,7 @@ use App\Entity\Credit\Program\Program;
 use App\Repository\Credit\RequestRepository;
 use App\State\Request\CreateStateProcessor;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RequestRepository::class)]
 #[ORM\Table(name: 'credit_request')]
@@ -27,20 +28,30 @@ class Request
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Type(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\EnableAutoMapping]
     private ?Car $car = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\EnableAutoMapping]
     private ?Program $program = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\PositiveOrZero]
     private ?int $initialPayment = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     private ?int $loanTerm = null;
 
     public function getId(): ?int

@@ -7,6 +7,7 @@ use App\Repository\Car\ModelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
 #[ORM\Table(name: 'car_model')]
@@ -17,18 +18,24 @@ class Model
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['car:item:read'])]
+    #[Assert\NotBlank]
+    #[Assert\Type(['type' => 'integer'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true, nullable: false)]
     #[Groups(['car:item:read'])]
     #[SerializedName('name')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 255)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne(inversedBy: 'models')]
+    #[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'models')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Brand $brand = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Assert\NotBlank]
     private ?Photo $photo = null;
 
 
