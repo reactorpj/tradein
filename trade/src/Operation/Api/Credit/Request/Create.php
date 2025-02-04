@@ -10,13 +10,18 @@ use App\Exception\Credit\Request\NotFoundException;
 use App\Repository\Car\CarRepository;
 use App\Repository\Credit\ProgramRepository;
 use App\Repository\Credit\RequestRepository;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Exception\ValidatorException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ValidatorBuilder;
 
 final readonly class Create implements Operation
 {
 	public function __construct(
 		private CarRepository $carRepository,
 		private ProgramRepository $programRepository,
-		private RequestRepository $requestRepository
+		private RequestRepository $requestRepository,
+		private ValidatorInterface $validator
 	)
 	{}
 
@@ -34,6 +39,13 @@ final readonly class Create implements Operation
 		$request->setProgram($program);
 		$request->setLoanTerm($dto->loanTerm);
 		$request->setInitialPayment($dto->initialPayment);
+
+		$errors = $this->validator->validate($request);
+		if (count($errors) > 0) {
+			/** @var ConstraintViolation $firstError */
+			$firstError = $errors[0];
+			throw new ValidatorException($firstError->getMessage(), $firstError->getCode());
+		}
 
 		$this->requestRepository->save($request);
 
