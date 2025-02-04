@@ -29,7 +29,6 @@ class Car
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['car:item:read', 'car:list:read'])]
-    #[Assert\NotBlank]
     #[Assert\Type('integer')]
     private ?int $id = null;
 

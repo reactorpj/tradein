@@ -28,7 +28,6 @@ class Program
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Type(type: 'integer')]
     private ?int $id = null;
 

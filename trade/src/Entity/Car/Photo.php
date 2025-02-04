@@ -13,7 +13,6 @@ class Photo
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Type('integer')]
     private ?int $id = null;
 

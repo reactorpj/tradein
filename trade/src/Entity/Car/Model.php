@@ -18,7 +18,6 @@ class Model
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['car:item:read'])]
-    #[Assert\NotBlank]
     #[Assert\Type(['type' => 'integer'])]
     private ?int $id = null;
 
